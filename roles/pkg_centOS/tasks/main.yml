@@ -1,0 +1,21 @@
+---
+# tasks file for pkg_centOS
+- name: Add repository file
+  copy:
+    src: "{{ src }}"
+    dest: "{{ dest }}"
+    mode: '0755'
+  when: src != ""
+
+- name: Install package using yum
+  yum:
+    name: "{{ package }}"
+    state: latest
+    update_cache: yes
+
+- name: start service
+  service:
+    name: "{{ service }}"
+    state: started
+    enabled: yes
+  when: service != "" 
